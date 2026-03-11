@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=2 format=3 uid="uid://c5dcrbjysy12"]
+
+[ext_resource type="Script" path="res://Scripts/weapon_resource.gd" id="1_amyku"]
+
+[resource]
+script = ExtResource("1_amyku")
+weapon_name = "Revolver"
+ammo = 25
+damage = 25
+speed = 400
+auto_fire = false
+fire_rate = 0.25
+bullet = "Revolver_Bullet"
+start_intensity = 0.75
+end_intensity = 0.1
+duration = 0.25

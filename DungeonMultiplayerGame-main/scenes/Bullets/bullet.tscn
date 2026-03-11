@@ -1,0 +1,102 @@
+[gd_scene load_steps=14 format=3 uid="uid://ctaivh0jdvvsn"]
+
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_vn24v"]
+[ext_resource type="Texture2D" uid="uid://c3ruxw34cr8u0" path="res://sprites/new_bullet.png" id="2_o3tbl"]
+[ext_resource type="Script" path="res://Scripts/hit_box.gd" id="3_n3xjh"]
+[ext_resource type="Script" path="res://Scripts/teleport.gd" id="4_7vmt6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2p3u"]
+atlas = ExtResource("2_o3tbl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq3cw"]
+atlas = ExtResource("2_o3tbl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iypts"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2p3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq3cw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cu0oc"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dgb21"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_er2n8"]
+radius = 2.0
+
+[sub_resource type="Gradient" id="Gradient_lsqr1"]
+offsets = PackedFloat32Array(0, 0.441026, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4jofr"]
+gradient = SubResource("Gradient_lsqr1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5fb37"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector3(0.5, -0.5, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 700, 0)
+damping_min = 100.0
+damping_max = 800.0
+scale_max = 3.0
+color_ramp = SubResource("GradientTexture1D_4jofr")
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_vn24v")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 0
+sprite_frames = SubResource("SpriteFrames_iypts")
+autoplay = "default"
+frame_progress = 0.44703
+
+[node name="death_timer" type="Timer" parent="."]
+wait_time = 1.25
+autostart = true
+
+[node name="BaseCollider" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="Collider" type="CollisionShape2D" parent="BaseCollider"]
+shape = SubResource("CircleShape2D_cu0oc")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_n3xjh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_dgb21")
+
+[node name="Teleport" type="Area2D" parent="."]
+script = ExtResource("4_7vmt6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teleport"]
+shape = SubResource("CircleShape2D_er2n8")
+
+[node name="hit_particle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_5fb37")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+
+[connection signal="area_entered" from="BaseCollider" to="." method="_on_base_collider_area_entered"]
+[connection signal="body_entered" from="BaseCollider" to="." method="_body_entered"]

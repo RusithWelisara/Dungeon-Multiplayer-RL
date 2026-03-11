@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlflyhstcfy8r"]
+
+[ext_resource type="Script" uid="uid://prp85elrwf4r" path="res://Scripts/player_UI.gd" id="1_sh3tx"]
+
+[sub_resource type="Gradient" id="Gradient_ccvek"]
+offsets = PackedFloat32Array(0.5, 0.501)
+colors = PackedColorArray(0.445003, 0.685525, 0.380707, 1, 0.796078, 0.847059, 0.607843, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6fea0"]
+gradient = SubResource("Gradient_ccvek")
+
+[sub_resource type="Gradient" id="Gradient_pjnoi"]
+offsets = PackedFloat32Array(0.5, 0.501)
+colors = PackedColorArray(0.72265, 0.8236, 0.973303, 1, 0.716853, 0.512201, 0.851517, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k2k3l"]
+gradient = SubResource("Gradient_pjnoi")
+
+[node name="PlayerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sh3tx")
+P1_HP_BAR_TEXTURE = SubResource("GradientTexture1D_6fea0")
+P2_HP_BAR_TEXTURE = SubResource("GradientTexture1D_k2k3l")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HPBar" type="ColorRect" parent="MarginContainer/Control"]
+layout_direction = 2
+layout_mode = 1
+offset_right = 463.0
+offset_bottom = 56.0
+color = Color(0, 0, 0, 0.843137)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/HPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Control" type="Control" parent="MarginContainer/Control/HPBar/MarginContainer"]
+layout_mode = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="MarginContainer/Control/HPBar/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 6
+stretch_margin_top = 6
+stretch_margin_right = 6
+stretch_margin_bottom = 6
+
+[node name="Infomation" type="VBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 1
+offset_top = 74.0
+offset_right = 464.0
+offset_bottom = 296.0
+theme_override_constants/separation = 10
+
+[node name="Score" type="Label" parent="MarginContainer/Control/Infomation"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Score:  "
+
+[node name="AmmoText" type="Label" parent="MarginContainer/Control/Infomation"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+
+[node name="PickupText" type="Label" parent="MarginContainer/Control/Infomation"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Press [E] to Swap Weapons"

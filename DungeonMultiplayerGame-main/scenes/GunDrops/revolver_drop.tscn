@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cglqodcbxmukl"]
+
+[ext_resource type="Texture2D" uid="uid://cmhs82hwd4fdw" path="res://sprites/sniper.png" id="1_i6o5x"]
+[ext_resource type="Script" path="res://Scripts/pickup_item.gd" id="2_0qe6g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1kv1"]
+size = Vector2(9, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r0dl0"]
+radius = 4.0
+
+[node name="RevolverDrop" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="Gun" type="Sprite2D" parent="."]
+texture = ExtResource("1_i6o5x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p1kv1")
+
+[node name="PickupItem" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_0qe6g")
+ITEM_NAME = "Revolver"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupItem"]
+shape = SubResource("CircleShape2D_r0dl0")

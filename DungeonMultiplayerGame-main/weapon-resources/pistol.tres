@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=2 format=3 uid="uid://cox4phehwqpmm"]
+
+[ext_resource type="Script" path="res://Scripts/weapon_resource.gd" id="1_nigqx"]
+
+[resource]
+script = ExtResource("1_nigqx")
+weapon_name = "Pistol"
+ammo = 80
+damage = 10
+speed = 300
+auto_fire = true
+fire_rate = 0.1
+bullet = "Bullet"
+start_intensity = 0.75
+end_intensity = 0.1
+duration = 0.25

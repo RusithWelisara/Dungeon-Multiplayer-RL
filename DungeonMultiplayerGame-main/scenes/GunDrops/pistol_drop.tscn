@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnrrcy6vft3aj"]
+
+[ext_resource type="Script" path="res://Scripts/pickup_item.gd" id="2_fd1j2"]
+[ext_resource type="Texture2D" uid="uid://dtrc55x83tlvk" path="res://sprites/gun.png" id="2_ttwj1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1kv1"]
+size = Vector2(6, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r0dl0"]
+radius = 5.09902
+
+[node name="PistolDrop" type="Node2D"]
+
+[node name="Gun" type="Sprite2D" parent="."]
+texture = ExtResource("2_ttwj1")
+
+[node name="Collider" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collider"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_p1kv1")
+
+[node name="PickupItem" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_fd1j2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupItem"]
+shape = SubResource("CircleShape2D_r0dl0")

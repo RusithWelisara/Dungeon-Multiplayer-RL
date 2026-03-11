@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c77o08g6552n8"]
+
+[ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_vlld7"]
+[ext_resource type="Resource" uid="uid://cox4phehwqpmm" path="res://weapon-resources/pistol.tres" id="2_mt5gb"]
+[ext_resource type="Texture2D" uid="uid://dtrc55x83tlvk" path="res://sprites/gun.png" id="3_726w6"]
+[ext_resource type="AudioStream" uid="uid://8mih7ea5tlqp" path="res://sounds/fox_laser.ogg" id="4_p2ulg"]
+
+[node name="Pistol" type="Node2D" groups=["Weapon"]]
+position = Vector2(0, 1)
+script = ExtResource("1_vlld7")
+data = ExtResource("2_mt5gb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["Weapon"]]
+position = Vector2(2, 0)
+texture = ExtResource("3_726w6")
+
+[node name="BulletPoint" type="Marker2D" parent="." groups=["Weapon"]]
+position = Vector2(7, -1)
+gizmo_extents = 1.0
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_p2ulg")

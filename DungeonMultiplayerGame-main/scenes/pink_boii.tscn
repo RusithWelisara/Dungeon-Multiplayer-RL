@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://clmi7qsm5ymj8"]
+
+[ext_resource type="Script" uid="uid://glo33tehdf5x" path="res://Scripts/player_controller.gd" id="1_d6mhp"]
+[ext_resource type="Texture2D" uid="uid://b5hdyfdcs5fff" path="res://sprites/2playerboii/Character_spirtes.png" id="2_t4p5n"]
+[ext_resource type="Script" uid="uid://dnpnab3hc0src" path="res://Scripts/player_weapon.gd" id="3_w2lwd"]
+[ext_resource type="Script" uid="uid://cmu05v44jdlvu" path="res://Scripts/weapon_manager.gd" id="3_ydnla"]
+[ext_resource type="Script" uid="uid://clv6ynew48ny8" path="res://Scripts/ai_controller.gd" id="4_jw4br"]
+[ext_resource type="Script" uid="uid://b3iv3dqmc28dc" path="res://Scripts/hurt_box.gd" id="5_v7n4b"]
+[ext_resource type="Texture2D" uid="uid://bjl701d27gs2h" path="res://sprites/textur_atlas.png" id="6_71ee1"]
+[ext_resource type="Script" uid="uid://1yejf2qyp7m1" path="res://Scripts/teleport.gd" id="6_smiwo"]
+[ext_resource type="PackedScene" uid="uid://dlflyhstcfy8r" path="res://scenes/player_ui.tscn" id="7_ovspl"]
+[ext_resource type="Script" uid="uid://twa6unb3514x" path="res://Scripts/pickup_detector.gd" id="8_smn1y"]
+[ext_resource type="Script" uid="uid://d3g1nj2p7omg" path="res://Scripts/player_animation.gd" id="9_7qcgs"]
+[ext_resource type="Script" uid="uid://7thbj8kinhgj" path="res://addons/godot_rl_agents/sync.gd" id="12_xl34u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bnroy"]
+atlas = ExtResource("2_t4p5n")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldobf"]
+atlas = ExtResource("2_t4p5n")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v61h2"]
+atlas = ExtResource("2_t4p5n")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fetl8"]
+atlas = ExtResource("2_t4p5n")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4wo1"]
+atlas = ExtResource("2_t4p5n")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vu5bm"]
+atlas = ExtResource("2_t4p5n")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvpl4"]
+atlas = ExtResource("2_t4p5n")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0gje"]
+atlas = ExtResource("2_t4p5n")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2e8el"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bnroy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldobf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v61h2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fetl8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4wo1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vu5bm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvpl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0gje")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6pnv4"]
+size = Vector2(7, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkw8u"]
+size = Vector2(8, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_goiq0"]
+radius = 28.0179
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gwptw"]
+radius = 3.0
+
+[node name="PinkBoii" type="CharacterBody2D" unique_id=1274656006 groups=["Player"]]
+collision_mask = 2
+script = ExtResource("1_d6mhp")
+IS_P1 = false
+
+[node name="Code" type="Node" parent="." unique_id=558864779]
+
+[node name="Animation" type="Node" parent="Code" unique_id=388434363]
+unique_name_in_owner = true
+script = ExtResource("9_7qcgs")
+
+[node name="Weapon" type="Node" parent="Code" unique_id=1467459852]
+unique_name_in_owner = true
+script = ExtResource("3_w2lwd")
+
+[node name="AIController2D" type="Node2D" parent="Code" unique_id=1340427073]
+script = ExtResource("4_jw4br")
+metadata/_custom_type_script = "uid://cjej8n1fjng2c"
+
+[node name="Sprites" type="AnimatedSprite2D" parent="." unique_id=1412083522]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_2e8el")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Player_Id" type="Sprite2D" parent="." unique_id=496782070]
+unique_name_in_owner = true
+position = Vector2(0, -14)
+texture = ExtResource("6_71ee1")
+hframes = 4
+vframes = 4
+frame = 1
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=313098693]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_6pnv4")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=467022714]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("5_v7n4b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=784506103]
+shape = SubResource("RectangleShape2D_kkw8u")
+
+[node name="PickupDetector" type="Area2D" parent="." unique_id=113242407]
+script = ExtResource("8_smn1y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupDetector" unique_id=1364411043]
+shape = SubResource("CircleShape2D_goiq0")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="Teleport" type="Area2D" parent="." unique_id=507672687]
+script = ExtResource("6_smiwo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teleport" unique_id=84721898]
+shape = SubResource("CircleShape2D_gwptw")
+
+[node name="WeaponHolder" type="Node2D" parent="." unique_id=237428548]
+script = ExtResource("3_ydnla")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1676506194]
+
+[node name="PlayerUI" parent="UI" unique_id=2075079737 instance=ExtResource("7_ovspl")]
+visible = false
+
+[node name="weapon_check_timer" type="Timer" parent="." unique_id=71024554]
+unique_name_in_owner = true
+wait_time = 0.1
+autostart = true
+
+[node name="Sync" type="Node" parent="." unique_id=1470634988]
+script = ExtResource("12_xl34u")
+metadata/_custom_type_script = "uid://7thbj8kinhgj"
