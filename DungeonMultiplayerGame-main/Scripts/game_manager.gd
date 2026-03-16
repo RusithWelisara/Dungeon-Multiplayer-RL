@@ -18,6 +18,9 @@ var can_restart: bool = false
 var game_end: bool = false
 var winner: int = 0
 
+var pistol_spawn_pos: Vector2 = Vector2(-71, 16)
+var revolver_spawn_pos: Vector2 = Vector2(83, 17)
+
 const PISTOL_DROP = preload("res://scenes/GunDrops/pistol_drop.tscn")
 const REVOLVER_DROP = preload("res://scenes/GunDrops/revolver_drop.tscn")
 
@@ -112,14 +115,19 @@ func restart() -> void:
 		if "Drop" in node.name:
 			node.queue_free()
 			
+	# Respawn map procedurally
+	var map = get_parent().get_node_or_null("GameHolder/Game/Map")
+	if map and map.has_method("generate"):
+		map.generate()
+
 	# Spawn default set of drops around
 	var parent_node = %GreenBoii.get_parent()
 	var p_drop = PISTOL_DROP.instantiate()
-	p_drop.position = Vector2(-71, 16)
+	p_drop.position = pistol_spawn_pos
 	parent_node.add_child(p_drop)
 	
 	var r_drop = REVOLVER_DROP.instantiate()
-	r_drop.position = Vector2(83, 17)
+	r_drop.position = revolver_spawn_pos
 	parent_node.add_child(r_drop)
 
 func respawn_weapon_drop(weapon_name: String) -> void:
@@ -134,7 +142,7 @@ func respawn_weapon_drop(weapon_name: String) -> void:
 				
 		parent_node.set_meta("spawning_pistol", true)
 		var p_drop = PISTOL_DROP.instantiate()
-		p_drop.position = Vector2(-71, 16)
+		p_drop.position = pistol_spawn_pos
 		parent_node.call_deferred("add_child", p_drop)
 		get_tree().create_timer(0.1).timeout.connect(func(): parent_node.remove_meta("spawning_pistol"))
 		
@@ -146,6 +154,6 @@ func respawn_weapon_drop(weapon_name: String) -> void:
 				
 		parent_node.set_meta("spawning_revolver", true)
 		var r_drop = REVOLVER_DROP.instantiate()
-		r_drop.position = Vector2(83, 17)
+		r_drop.position = revolver_spawn_pos
 		parent_node.call_deferred("add_child", r_drop)
 		get_tree().create_timer(0.1).timeout.connect(func(): parent_node.remove_meta("spawning_revolver"))

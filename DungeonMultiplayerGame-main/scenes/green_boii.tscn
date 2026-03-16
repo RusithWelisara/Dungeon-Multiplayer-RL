@@ -166,4 +166,5 @@ autostart = true
 
 [node name="Sync" type="Node" parent="." unique_id=687652854]
 script = ExtResource("12_y6h6b")
+control_mode = 0
 metadata/_custom_type_script = "uid://7thbj8kinhgj"
